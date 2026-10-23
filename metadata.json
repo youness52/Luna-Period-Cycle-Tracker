@@ -1,0 +1,6 @@
+{
+  "name": "Luna: Period & Cycle Tracker",
+  "description": "An intuitive, private cycle and period tracker with symptom logging, ovulation insights, and predictive calendar analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

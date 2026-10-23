@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Gentle outer cycle ring -->
+    <path
+        android:fillColor="#33FFFFFF"
+        android:pathData="M54,20 C35.2,20 20,35.2 20,54 C20,72.8 35.2,88 54,88 C72.8,88 88,72.8 88,54 C88,35.2 72.8,20 54,20 Z M54,83 C38,83 25,70 25,54 C25,38 38,25 54,25 C70,25 83,38 83,54 C83,70 70,83 54,83 Z"/>
+    <!-- Glowing period cycle droplet -->
+    <path
+        android:fillColor="#FFF0F5"
+        android:pathData="M54,30 C54,30 37,50 37,63 C37,72.4 44.6,80 54,80 C63.4,80 71,72.4 71,63 C71,50 54,30 54,30 Z"/>
+    <!-- Inner soft ruby heart bloom -->
+    <path
+        android:fillColor="#E25574"
+        android:pathData="M54,46 C54,46 44,58 44,65 C44,70.5 48.5,75 54,75 C59.5,75 64,70.5 64,65 C64,58 54,46 54,46 Z"/>
+    <!-- Serene star sparkle -->
+    <path
+        android:fillColor="#FFD6DF"
+        android:pathData="M73,26 C73,29 76,31 79,31 C76,31 73,33 73,36 C73,33 70,31 67,31 C70,31 73,29 73,26 Z"/>
+</vector>
