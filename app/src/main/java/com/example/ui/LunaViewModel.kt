@@ -144,6 +144,29 @@ class LunaViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun completeSetupWizard(newSettings: UserSettings, initialPeriodStartDate: LocalDate?) {
+        viewModelScope.launch {
+            repository.saveSettings(newSettings.copy(isOnboardingCompleted = true))
+            if (initialPeriodStartDate != null) {
+                for (i in 0 until newSettings.avgPeriodLength) {
+                    val date = initialPeriodStartDate.plusDays(i.toLong())
+                    val log = DayLog(
+                        date = date,
+                        isPeriod = true,
+                        flowIntensity = if (i == 0) FlowIntensity.HEAVY else if (i < 3) FlowIntensity.MEDIUM else FlowIntensity.LIGHT
+                    )
+                    repository.saveDayLog(log)
+                }
+            }
+        }
+    }
+
+    fun rerunSetupWizard() {
+        viewModelScope.launch {
+            repository.saveSettings(settings.value.copy(isOnboardingCompleted = false))
+        }
+    }
+
     fun seedSampleData() {
         viewModelScope.launch {
             repository.seedSampleCycles()

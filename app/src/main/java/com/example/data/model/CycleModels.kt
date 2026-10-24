@@ -233,7 +233,9 @@ data class UserSettings(
     val isPinLocked: Boolean = false,
     val pinCode: String = "",
     val reminderEnabled: Boolean = true,
-    val language: String = "system" // "system", "ar", "en"
+    val language: String = "system", // "system", "ar", "en"
+    val isOnboardingCompleted: Boolean = false,
+    val trackingGoal: String = "cycle" // "cycle", "fertility", "wellness"
 )
 
 data class CycleHistoryItem(

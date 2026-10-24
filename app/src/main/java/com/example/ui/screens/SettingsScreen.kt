@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.filled.Security
+import androidx.compose.material.icons.filled.Spa
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -57,6 +58,7 @@ fun SettingsScreen(
     onSaveSettings: (UserSettings) -> Unit,
     onSeedSampleData: () -> Unit,
     onClearAllData: () -> Unit,
+    onRerunWizard: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     var showClearDialog by remember { mutableStateOf(false) }
@@ -389,6 +391,17 @@ fun SettingsScreen(
                     Icon(imageVector = Icons.Default.Add, contentDescription = null, modifier = Modifier.size(16.dp))
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(text = stringResource(R.string.load_sample_data))
+                }
+
+                // Rerun Setup Wizard
+                OutlinedButton(
+                    onClick = onRerunWizard,
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier.fillMaxWidth().testTag("rerun_wizard_button")
+                ) {
+                    Icon(imageVector = Icons.Default.Spa, contentDescription = null, modifier = Modifier.size(16.dp), tint = MaterialTheme.colorScheme.primary)
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(text = stringResource(R.string.rerun_wizard))
                 }
 
                 // Clear all data

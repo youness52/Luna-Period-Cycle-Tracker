@@ -126,4 +126,39 @@
     <string name="notes_placeholder">Record any thoughts, vitamins taken, or body sensations...</string>
     <string name="save_entry">Save Entry</string>
     <string name="clear_log_day">Clear Log For This Day</string>
+
+    <!-- Setup Wizard Strings -->
+    <string name="wizard_welcome_title">Welcome to Luna</string>
+    <string name="wizard_welcome_subtitle">Your private, intuitive cycle and wellness companion.</string>
+    <string name="wizard_privacy_promise">100% Private &amp; Device-Only</string>
+    <string name="wizard_privacy_promise_desc">Your health data never leaves this phone. No accounts, no cloud servers, and zero ad trackers.</string>
+    <string name="wizard_step_indicator">Step %1$d of %2$d</string>
+    <string name="wizard_goal_title">What is your primary goal?</string>
+    <string name="wizard_goal_subtitle">We will customize your experience based on your health focus.</string>
+    <string name="goal_cycle_title">Track Period &amp; Symptoms</string>
+    <string name="goal_cycle_desc">Monitor periods, cramps, moods, and daily physical signals.</string>
+    <string name="goal_fertility_title">Predict Ovulation &amp; Fertile Days</string>
+    <string name="goal_fertility_desc">Get accurate estimates for your fertile window and ovulation peak.</string>
+    <string name="goal_wellness_title">General Body &amp; Cycle Rhythm</string>
+    <string name="goal_wellness_desc">Understand energy, nutrition, and exercise for each cycle phase.</string>
+    <string name="wizard_cycle_length_title">How long is your cycle?</string>
+    <string name="wizard_cycle_length_desc">Number of days from the start of one period to the start of the next (typical: 28 days).</string>
+    <string name="wizard_period_length_title">How long does your period last?</string>
+    <string name="wizard_period_length_desc">The typical duration of bleeding days (usually 3 to 7 days).</string>
+    <string name="wizard_last_period_title">When did your last period start?</string>
+    <string name="wizard_last_period_desc">This helps calculate your current cycle day and upcoming predictions right away.</string>
+    <string name="wizard_today">Today</string>
+    <string name="wizard_yesterday">Yesterday</string>
+    <string name="wizard_days_ago">%1$d days ago</string>
+    <string name="wizard_weeks_ago">%1$d weeks ago</string>
+    <string name="wizard_not_sure">I\'m not sure / Start fresh</string>
+    <string name="wizard_privacy_step_title">Privacy &amp; Security</string>
+    <string name="wizard_privacy_step_desc">Choose how discreet you want Luna to appear.</string>
+    <string name="wizard_ready_title">You\'re All Set!</string>
+    <string name="wizard_ready_subtitle">Your cycle engine is ready with personalized insights and predictions.</string>
+    <string name="wizard_get_started">Start Using Luna</string>
+    <string name="wizard_next">Next</string>
+    <string name="wizard_back">Back</string>
+    <string name="wizard_skip">Skip</string>
+    <string name="rerun_wizard">Rerun Setup Wizard</string>
 </resources>

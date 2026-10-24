@@ -59,6 +59,7 @@ import com.example.ui.components.LogDayBottomSheet
 import com.example.ui.screens.CalendarScreen
 import com.example.ui.screens.InsightsScreen
 import com.example.ui.screens.SettingsScreen
+import com.example.ui.screens.SetupWizardScreen
 import com.example.ui.screens.TodayScreen
 import java.time.LocalDate
 import java.util.Locale
@@ -100,6 +101,17 @@ fun LunaMainScreen(viewModel: LunaViewModel) {
         LocalContext provides localizedContext,
         LocalLayoutDirection provides layoutDirection
     ) {
+        // Setup Wizard Gate (runs on first launch or if rerun is triggered)
+        if (!settings.isOnboardingCompleted) {
+            SetupWizardScreen(
+                initialSettings = settings,
+                onComplete = { newSets, initialDate ->
+                    viewModel.completeSetupWizard(newSets, initialDate)
+                }
+            )
+            return@CompositionLocalProvider
+        }
+
         val today = LocalDate.now()
         val todayLog = allLogs.find { it.date == today }
         val activeSheetLog = allLogs.find { it.date == logSheetDate }
@@ -222,7 +234,8 @@ fun LunaMainScreen(viewModel: LunaViewModel) {
                             settings = settings,
                             onSaveSettings = { newSets -> viewModel.saveSettings(newSets) },
                             onSeedSampleData = { viewModel.seedSampleData() },
-                            onClearAllData = { viewModel.clearAllData() }
+                            onClearAllData = { viewModel.clearAllData() },
+                            onRerunWizard = { viewModel.rerunSetupWizard() }
                         )
                     }
                 }

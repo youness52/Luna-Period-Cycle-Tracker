@@ -16,7 +16,9 @@ data class UserSettingsEntity(
     val isPinLocked: Boolean = false,
     val pinCode: String = "",
     val reminderEnabled: Boolean = true,
-    val language: String = "system"
+    val language: String = "system",
+    val isOnboardingCompleted: Boolean = false,
+    val trackingGoal: String = "cycle"
 ) {
     fun toDomain(): UserSettings {
         return UserSettings(
@@ -28,7 +30,9 @@ data class UserSettingsEntity(
             isPinLocked = isPinLocked,
             pinCode = pinCode,
             reminderEnabled = reminderEnabled,
-            language = language
+            language = language,
+            isOnboardingCompleted = isOnboardingCompleted,
+            trackingGoal = trackingGoal
         )
     }
 
@@ -44,7 +48,9 @@ data class UserSettingsEntity(
                 isPinLocked = settings.isPinLocked,
                 pinCode = settings.pinCode,
                 reminderEnabled = settings.reminderEnabled,
-                language = settings.language
+                language = settings.language,
+                isOnboardingCompleted = settings.isOnboardingCompleted,
+                trackingGoal = settings.trackingGoal
             )
         }
     }

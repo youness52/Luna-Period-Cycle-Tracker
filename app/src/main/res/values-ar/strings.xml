@@ -126,4 +126,39 @@
     <string name="notes_placeholder">سجلي أي خواطر، فيتامينات تناولتها، أو تغيرات جسدية...</string>
     <string name="save_entry">حفظ التسجيل</string>
     <string name="clear_log_day">مسح تسجيل هذا اليوم</string>
+
+    <!-- Setup Wizard Strings (Arabic) -->
+    <string name="wizard_welcome_title">مرحباً بك في لونا</string>
+    <string name="wizard_welcome_subtitle">رفيقتك الخاصة والذكية لتتبع دورتك الشهرية وصحتك الأنثوية.</string>
+    <string name="wizard_privacy_promise">خصوصية تامة 100% على جهازك</string>
+    <string name="wizard_privacy_promise_desc">بياناتك الصحية لا تغادر هذا الهاتف أبداً. لا حسابات، لا خوادم سحابية، وبدون أي تتبع إعلاني.</string>
+    <string name="wizard_step_indicator">الخطوة %1$d من %2$d</string>
+    <string name="wizard_goal_title">ما هو هدفك الأساسي؟</string>
+    <string name="wizard_goal_subtitle">سنخصص تجربتك بناءً على أولوياتك الصحية.</string>
+    <string name="goal_cycle_title">تتبع الدورة والأعراض</string>
+    <string name="goal_cycle_desc">متابعة مواعيد الحيض، التقلصات، المزاج والتغيرات اليومية.</string>
+    <string name="goal_fertility_title">معرفة أيام الإباضة والخصوبة</string>
+    <string name="goal_fertility_desc">تقدير دقيق لنافذة الخصوبة وأيام ذروة الإباضة.</string>
+    <string name="goal_wellness_title">الوعي بإيقاع الجسم والطاقة</string>
+    <string name="goal_wellness_desc">فهم مستويات طاقتك، التغذية والتمارين المناسبة لكل طور.</string>
+    <string name="wizard_cycle_length_title">كم يبلغ طول دورتك الشهرية عادة؟</string>
+    <string name="wizard_cycle_length_desc">عدد الأيام من أول يوم في دورة الحيض حتى أول يوم في الدورة التالية (المعتاد: 28 يوماً).</string>
+    <string name="wizard_period_length_title">كم يوماً تستمر فترة الحيض؟</string>
+    <string name="wizard_period_length_desc">المدة المعتادة لأيام النزيف (غالباً بين 3 إلى 7 أيام).</string>
+    <string name="wizard_last_period_title">متى بدأت آخر دورة شهرية لك؟</string>
+    <string name="wizard_last_period_desc">يساعدنا ذلك على حساب يوم دورتك الحالي والتوقعات القادمة فوراً.</string>
+    <string name="wizard_today">اليوم</string>
+    <string name="wizard_yesterday">أمس</string>
+    <string name="wizard_days_ago">منذ %1$d أيام</string>
+    <string name="wizard_weeks_ago">منذ %1$d أسابيع</string>
+    <string name="wizard_not_sure">لست متأكدة / البدء بدون تاريخ</string>
+    <string name="wizard_privacy_step_title">الخصوصية والأمان</string>
+    <string name="wizard_privacy_step_desc">اختاري مستوى السرية والخصوصية المناسب لك.</string>
+    <string name="wizard_ready_title">أنت جاهزة تماماً!</string>
+    <string name="wizard_ready_subtitle">تم تجهيز محرك دورتك الشهرية بنجاح مع تحليلات وتوقعات مخصصة.</string>
+    <string name="wizard_get_started">ابدأي استخدام لونا</string>
+    <string name="wizard_next">التالي</string>
+    <string name="wizard_back">السابق</string>
+    <string name="wizard_skip">تخطي</string>
+    <string name="rerun_wizard">إعادة تشغيل معالج الإعداد</string>
 </resources>
