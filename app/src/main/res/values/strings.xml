@@ -1,3 +1,129 @@
 <resources>
     <string name="app_name">Luna</string>
+    <string name="discreet_app_name">Daily Log</string>
+    <string name="tab_today">Today</string>
+    <string name="tab_calendar">Calendar</string>
+    <string name="tab_insights">Insights</string>
+    <string name="tab_settings">Privacy</string>
+    <string name="private_badge">Private &amp; Local</string>
+
+    <!-- Cycle Ring & Today -->
+    <string name="log_period">Log Period</string>
+    <string name="period_logged">Period Logged</string>
+    <string name="log_symptoms">Log Symptoms</string>
+    <string name="day_prefix">Day %1$d</string>
+    <string name="period_active">Menstruation active</string>
+    <string name="period_in_days">Period in %1$d days</string>
+    <string name="period_expected_today">Period expected today</string>
+    <string name="period_late_by">Period late by %1$d days</string>
+    <string name="fertility_level">%1$s Fertility</string>
+    <string name="wellness_hydration">Daily Wellness &amp; Hydration</string>
+    <string name="water">Water</string>
+    <string name="water_glasses">%1$d glasses</string>
+    <string name="logged_symptoms_prefix">Logged Symptoms: </string>
+    <string name="mood_prefix">Mood: </string>
+
+    <!-- Calendar -->
+    <string name="calendar_title">Cycle Calendar</string>
+    <string name="calendar_subtitle">Tap any day to view or record symptoms</string>
+    <string name="today">Today</string>
+    <string name="legend_period">Period</string>
+    <string name="legend_predicted">Predicted</string>
+    <string name="legend_fertile">Fertile</string>
+    <string name="legend_ovulation">Ovulation</string>
+    <string name="menstruation_logged">Menstruation Logged</string>
+    <string name="predicted_period_day">Predicted Period Day</string>
+    <string name="estimated_ovulation_day">Estimated Ovulation Day</string>
+    <string name="fertile_window">Fertile Window</string>
+    <string name="cycle_day">Cycle Day</string>
+    <string name="edit_log">Edit Log</string>
+    <string name="log_day">Log Day</string>
+    <string name="no_symptoms_logged">No symptoms or flow logged yet for this date. Tap above to record how you\'re feeling.</string>
+    <string name="flow_label">Flow: %1$s</string>
+    <string name="cramps_label">Cramps: %1$s</string>
+    <string name="symptoms_label">Symptoms:</string>
+
+    <!-- Insights -->
+    <string name="insights_title">Cycle Insights</string>
+    <string name="insights_subtitle">Patterns, cycle lengths &amp; symptom trends</string>
+    <string name="avg_cycle">Avg Cycle</string>
+    <string name="avg_period">Avg Period</string>
+    <string name="regularity">Regularity</string>
+    <string name="regular">Regular</string>
+    <string name="variable">Variable</string>
+    <string name="days">days</string>
+    <string name="cycle_history">Cycle History</string>
+    <string name="no_cycles_yet">No recorded cycles yet</string>
+    <string name="no_cycles_desc">Log your period in the Calendar or go to Settings to seed sample data.</string>
+    <string name="current_cycle">Current Cycle</string>
+    <string name="ongoing">Ongoing</string>
+    <string name="cycle_number">Cycle #%1$d</string>
+    <string name="frequent_symptoms">Most Frequent Symptoms</string>
+    <string name="no_frequent_symptoms">No symptoms recorded yet. As you log how you feel, patterns will appear here.</string>
+    <string name="times">%1$d times</string>
+    <string name="understanding_phases">Understanding Your 4 Cycle Phases</string>
+
+    <!-- Privacy & Settings -->
+    <string name="privacy_settings">Privacy &amp; Settings</string>
+    <string name="privacy_subtitle">Your intimate health data remains 100% on this device</string>
+    <string name="privacy_card_title">100% Local &amp; Private</string>
+    <string name="privacy_card_desc">No cloud syncing, no ad trackers, and no accounts required. All cycle and symptom entries are encrypted in local device storage.</string>
+    <string name="privacy_controls">Privacy Controls</string>
+    <string name="discreet_mode">Discreet Display Mode</string>
+    <string name="discreet_mode_desc">Hides words like \'Menstruation\' and replaces them with neutral terms in public.</string>
+    <string name="app_pin_lock">App PIN Lock</string>
+    <string name="app_pin_locked_desc">Protected by 4-digit PIN</string>
+    <string name="app_pin_unlocked_desc">Require PIN code to view cycle data</string>
+    <string name="cycle_parameters">Cycle Parameters</string>
+    <string name="target_cycle_length">Target Cycle Length</string>
+    <string name="target_cycle_subtitle">Usually between 21 and 35 days</string>
+    <string name="target_period_length">Target Period Duration</string>
+    <string name="target_period_subtitle">Usually between 3 and 7 days</string>
+    <string name="temp_unit">Temperature Unit</string>
+    <string name="temp_unit_desc">For Basal Body Temperature tracking</string>
+    <string name="language_setting">App Language</string>
+    <string name="language_setting_desc">Select Arabic or English</string>
+    <string name="lang_system">System Default</string>
+    <string name="lang_en">English</string>
+    <string name="lang_ar">العربية (Arabic)</string>
+    <string name="data_management">Data Management</string>
+    <string name="load_sample_data">Load Sample 3-Month Cycle Data</string>
+    <string name="erase_all_data">Erase All Logs &amp; Reset</string>
+    <string name="medical_disclaimer">Medical Disclaimer: Luna is intended for personal cycle tracking and wellness insights only. It is not a clinical diagnostic tool or a guaranteed contraceptive method.</string>
+
+    <!-- Dialogs -->
+    <string name="erase_dialog_title">Erase All Data?</string>
+    <string name="erase_dialog_desc">This will permanently delete all recorded periods, daily symptoms, moods, and notes from this device.</string>
+    <string name="erase_confirm">Erase Everything</string>
+    <string name="cancel">Cancel</string>
+    <string name="seed_success_title">Sample Cycles Loaded!</string>
+    <string name="seed_success_desc">3 past cycles with realistic flows and symptoms have been added. You can now explore the Calendar, Insights timeline, and predicted ovulation dates.</string>
+    <string name="explore_luna">Explore Luna</string>
+    <string name="pin_dialog_title">Set 4-Digit Privacy PIN</string>
+    <string name="pin_dialog_desc">Enter a 4-digit PIN code to lock access to your cycle logs:</string>
+    <string name="set_pin">Set PIN</string>
+
+    <!-- Pin Lock Screen -->
+    <string name="luna_locked">Luna Is Locked</string>
+    <string name="enter_pin_desc">Enter your 4-digit PIN to access private cycle data</string>
+    <string name="incorrect_pin">Incorrect PIN code. Try again.</string>
+    <string name="unlock">Unlock</string>
+
+    <!-- Log Sheet -->
+    <string name="daily_symptom_log">Daily Symptom Log</string>
+    <string name="period_flow">Period Flow</string>
+    <string name="bleeding">Bleeding</string>
+    <string name="no_flow">No Flow</string>
+    <string name="cramps_pain">Cramps &amp; Pain Intensity</string>
+    <string name="physical_symptoms">Physical Symptoms</string>
+    <string name="mood_mind">Mood &amp; Mind</string>
+    <string name="cervical_fluid">Cervical Fluid / Mucus</string>
+    <string name="intimacy_libido">Intimacy &amp; Libido</string>
+    <string name="water_intake">Water Intake</string>
+    <string name="sleep_rest">Sleep Rest</string>
+    <string name="bbt_label">Basal Body Temp (°%1$s)</string>
+    <string name="notes_label">Private Daily Notes &amp; Medication</string>
+    <string name="notes_placeholder">Record any thoughts, vitamins taken, or body sensations...</string>
+    <string name="save_entry">Save Entry</string>
+    <string name="clear_log_day">Clear Log For This Day</string>
 </resources>

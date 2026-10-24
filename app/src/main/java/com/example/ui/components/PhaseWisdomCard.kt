@@ -48,6 +48,7 @@ import com.example.ui.theme.PeriodCrimson
 fun PhaseWisdomCard(
     phase: CyclePhase,
     isDiscreetMode: Boolean,
+    isAr: Boolean = false,
     modifier: Modifier = Modifier
 ) {
     var isExpanded by remember { mutableStateOf(false) }
@@ -60,14 +61,23 @@ fun PhaseWisdomCard(
     }
 
     val displayTitle = if (isDiscreetMode) {
-        when (phase) {
-            CyclePhase.MENSTRUAL -> "Flow Phase Insights"
-            CyclePhase.FOLLICULAR -> "Phase I Insights"
-            CyclePhase.OVULATION -> "Peak Phase Insights"
-            CyclePhase.LUTEAL -> "Phase II Insights"
+        if (isAr) {
+            when (phase) {
+                CyclePhase.MENSTRUAL -> "نصائح المرحلة الأولى"
+                CyclePhase.FOLLICULAR -> "نصائح مرحلة النشاط"
+                CyclePhase.OVULATION -> "نصائح مرحلة الذروة"
+                CyclePhase.LUTEAL -> "نصائح مرحلة الهدوء"
+            }
+        } else {
+            when (phase) {
+                CyclePhase.MENSTRUAL -> "Flow Phase Insights"
+                CyclePhase.FOLLICULAR -> "Phase I Insights"
+                CyclePhase.OVULATION -> "Peak Phase Insights"
+                CyclePhase.LUTEAL -> "Phase II Insights"
+            }
         }
     } else {
-        phase.title
+        phase.localizedTitle(isAr)
     }
 
     Card(
@@ -109,7 +119,7 @@ fun PhaseWisdomCard(
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
-                            text = phase.subtitle,
+                            text = phase.localizedSubtitle(isAr),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -135,9 +145,13 @@ fun PhaseWisdomCard(
                     modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = "⚡ Energy: ", fontSize = 12.sp, fontWeight = FontWeight.Bold)
                     Text(
-                        text = phase.energyLevel,
+                        text = if (isAr) "⚡ الطاقة: " else "⚡ Energy: ",
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = phase.localizedEnergy(isAr),
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -156,19 +170,19 @@ fun PhaseWisdomCard(
                     if (!isDiscreetMode) {
                         WisdomSection(
                             icon = "🧬",
-                            title = "Hormone Dynamics",
-                            content = phase.hormoneSummary
+                            title = if (isAr) "ديناميكية الهرمونات" else "Hormone Dynamics",
+                            content = phase.localizedHormones(isAr)
                         )
                     }
                     WisdomSection(
                         icon = "🥗",
-                        title = "Nourishment & Nutrition",
-                        content = phase.nutritionTip
+                        title = if (isAr) "التغذية والأطعمة الداعمة" else "Nourishment & Nutrition",
+                        content = phase.localizedNutrition(isAr)
                     )
                     WisdomSection(
                         icon = "🧘‍♀️",
-                        title = "Movement & Rest",
-                        content = phase.workoutTip
+                        title = if (isAr) "النشاط البدني والراحة" else "Movement & Rest",
+                        content = phase.localizedWorkout(isAr)
                     )
                 }
             }
@@ -176,7 +190,7 @@ fun PhaseWisdomCard(
             if (!isExpanded) {
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
-                    text = "Tap to view hormone, food & movement advice",
+                    text = if (isAr) "المسي لعرض نصائح الهرمونات، التغذية، والرياضة" else "Tap to view hormone, food & movement advice",
                     fontSize = 11.sp,
                     color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Medium

@@ -15,7 +15,8 @@ data class UserSettingsEntity(
     val isDiscreetMode: Boolean = false,
     val isPinLocked: Boolean = false,
     val pinCode: String = "",
-    val reminderEnabled: Boolean = true
+    val reminderEnabled: Boolean = true,
+    val language: String = "system"
 ) {
     fun toDomain(): UserSettings {
         return UserSettings(
@@ -26,7 +27,8 @@ data class UserSettingsEntity(
             isDiscreetMode = isDiscreetMode,
             isPinLocked = isPinLocked,
             pinCode = pinCode,
-            reminderEnabled = reminderEnabled
+            reminderEnabled = reminderEnabled,
+            language = language
         )
     }
 
@@ -41,7 +43,8 @@ data class UserSettingsEntity(
                 isDiscreetMode = settings.isDiscreetMode,
                 isPinLocked = settings.isPinLocked,
                 pinCode = settings.pinCode,
-                reminderEnabled = settings.reminderEnabled
+                reminderEnabled = settings.reminderEnabled,
+                language = settings.language
             )
         }
     }

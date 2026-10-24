@@ -18,7 +18,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.material3.Card
@@ -31,19 +30,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.R
 import com.example.data.model.CycleInsightSummary
 import com.example.data.model.DayLog
 import com.example.data.model.UserSettings
 import com.example.ui.components.CycleRing
 import com.example.ui.components.PhaseWisdomCard
-import com.example.ui.theme.PeriodCrimson
 import com.example.ui.theme.WaterBlue
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @Composable
 fun TodayScreen(
@@ -56,6 +58,9 @@ fun TodayScreen(
     modifier: Modifier = Modifier
 ) {
     val today = LocalDate.now()
+    val configuration = LocalConfiguration.current
+    val locale = configuration.locales[0] ?: Locale.getDefault()
+    val isAr = locale.language == "ar"
 
     Column(
         modifier = modifier
@@ -72,13 +77,13 @@ fun TodayScreen(
         ) {
             Column {
                 Text(
-                    text = if (settings.isDiscreetMode) "Daily Log" else "Luna",
+                    text = if (settings.isDiscreetMode) stringResource(R.string.discreet_app_name) else stringResource(R.string.app_name),
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.ExtraBold,
                     color = MaterialTheme.colorScheme.primary
                 )
                 Text(
-                    text = today.format(DateTimeFormatter.ofPattern("EEEE, MMMM d")),
+                    text = today.format(DateTimeFormatter.ofPattern("EEEE, MMMM d", locale)),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -101,7 +106,7 @@ fun TodayScreen(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = "Private & Local",
+                        text = stringResource(R.string.private_badge),
                         fontSize = 11.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.primary
@@ -116,6 +121,7 @@ fun TodayScreen(
         CycleRing(
             insights = insights,
             isDiscreetMode = settings.isDiscreetMode,
+            isAr = isAr,
             onQuickTogglePeriod = onQuickTogglePeriod,
             onOpenLogger = { onOpenLogger(today) }
         )
@@ -125,7 +131,8 @@ fun TodayScreen(
         // Daily Phase Wisdom & Advice
         PhaseWisdomCard(
             phase = insights.currentPhase,
-            isDiscreetMode = settings.isDiscreetMode
+            isDiscreetMode = settings.isDiscreetMode,
+            isAr = isAr
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -139,7 +146,7 @@ fun TodayScreen(
         ) {
             Column(modifier = Modifier.padding(18.dp)) {
                 Text(
-                    text = "Daily Wellness & Hydration",
+                    text = stringResource(R.string.wellness_hydration),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface
@@ -165,8 +172,8 @@ fun TodayScreen(
                         }
                         Spacer(modifier = Modifier.width(10.dp))
                         Column {
-                            Text(text = "Water", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            Text(text = "$water glasses", fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                            Text(text = stringResource(R.string.water), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text(text = stringResource(R.string.water_glasses, water), fontWeight = FontWeight.Bold, fontSize = 15.sp)
                         }
                     }
 
@@ -202,7 +209,7 @@ fun TodayScreen(
                         Column(modifier = Modifier.padding(12.dp)) {
                             if (todayLog.symptoms.isNotEmpty()) {
                                 Text(
-                                    text = "Logged Symptoms: " + todayLog.symptoms.joinToString(", ") { "${it.emoji} ${it.displayName}" },
+                                    text = stringResource(R.string.logged_symptoms_prefix) + todayLog.symptoms.joinToString(", ") { "${it.emoji} ${it.localized(isAr)}" },
                                     fontSize = 12.sp,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
@@ -210,7 +217,7 @@ fun TodayScreen(
                             if (todayLog.moods.isNotEmpty()) {
                                 Spacer(modifier = Modifier.height(4.dp))
                                 Text(
-                                    text = "Mood: " + todayLog.moods.joinToString(", ") { "${it.emoji} ${it.displayName}" },
+                                    text = stringResource(R.string.mood_prefix) + todayLog.moods.joinToString(", ") { "${it.emoji} ${it.localized(isAr)}" },
                                     fontSize = 12.sp,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )

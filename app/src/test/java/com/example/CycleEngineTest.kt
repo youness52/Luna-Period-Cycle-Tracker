@@ -66,4 +66,12 @@ class CycleEngineTest {
         assertEquals(CyclePhase.MENSTRUAL, insights.currentPhase)
         assertTrue(insights.isPeriodActiveToday)
     }
+
+    @Test
+    fun testArabicLocalization() {
+        assertEquals("مرحلة الحيض", CyclePhase.MENSTRUAL.localizedTitle(true))
+        assertEquals("غزير", FlowIntensity.HEAVY.localized(true))
+        assertEquals("صداع", com.example.data.model.SymptomType.HEADACHE.localized(true))
+        assertEquals("سعيدة", com.example.data.model.MoodType.HAPPY.localized(true))
+    }
 }

@@ -7,14 +7,29 @@ enum class FlowIntensity(val displayName: String, val level: Int) {
     SPOTTING("Spotting", 1),
     LIGHT("Light", 2),
     MEDIUM("Medium", 3),
-    HEAVY("Heavy", 4)
+    HEAVY("Heavy", 4);
+
+    fun localized(isAr: Boolean): String = if (isAr) when (this) {
+        NONE -> "بدون تدفق"
+        SPOTTING -> "تبقيع"
+        LIGHT -> "خفيف"
+        MEDIUM -> "متوسط"
+        HEAVY -> "غزير"
+    } else displayName
 }
 
 enum class CrampLevel(val displayName: String, val severity: Int) {
     NONE("No Cramps", 0),
     MILD("Mild", 1),
     MODERATE("Moderate", 2),
-    SEVERE("Severe", 3)
+    SEVERE("Severe", 3);
+
+    fun localized(isAr: Boolean): String = if (isAr) when (this) {
+        NONE -> "بدون تقلصات"
+        MILD -> "خفيفة"
+        MODERATE -> "متوسطة"
+        SEVERE -> "شديدة"
+    } else displayName
 }
 
 enum class MoodType(val displayName: String, val emoji: String) {
@@ -25,7 +40,18 @@ enum class MoodType(val displayName: String, val emoji: String) {
     IRRITABLE("Irritable", "😤"),
     ANXIOUS("Anxious", "😰"),
     TIRED("Exhausted", "😴"),
-    SAD("Low / Sad", "😢")
+    SAD("Low / Sad", "😢");
+
+    fun localized(isAr: Boolean): String = if (isAr) when (this) {
+        HAPPY -> "سعيدة"
+        CALM -> "هادئة"
+        ENERGETIC -> "مفعمة بالنشاط"
+        SENSITIVE -> "حساسة"
+        IRRITABLE -> "متوترة"
+        ANXIOUS -> "قلقة"
+        TIRED -> "مرهقة"
+        SAD -> "حزينة"
+    } else displayName
 }
 
 enum class SymptomType(val displayName: String, val emoji: String) {
@@ -37,7 +63,19 @@ enum class SymptomType(val displayName: String, val emoji: String) {
     ACNE("Acne", "✨"),
     NAUSEA("Nausea", "🤢"),
     CRAVINGS("Food Cravings", "🍫"),
-    INSOMNIA("Insomnia", "🌙")
+    INSOMNIA("Insomnia", "🌙");
+
+    fun localized(isAr: Boolean): String = if (isAr) when (this) {
+        HEADACHE -> "صداع"
+        BLOATING -> "انتفاخ"
+        BREAST_TENDERNESS -> "ألم الثدي"
+        FATIGUE -> "تعب وإرهاق"
+        BACKACHE -> "ألم الظهر"
+        ACNE -> "حب الشباب"
+        NAUSEA -> "غثيان"
+        CRAVINGS -> "رغبة بالحلويات"
+        INSOMNIA -> "أرق"
+    } else displayName
 }
 
 enum class CervicalMucus(val displayName: String) {
@@ -46,21 +84,44 @@ enum class CervicalMucus(val displayName: String) {
     STICKY("Sticky"),
     CREAMY("Creamy"),
     EGG_WHITE("Egg White (Fertile)"),
-    WATERY("Watery")
+    WATERY("Watery");
+
+    fun localized(isAr: Boolean): String = if (isAr) when (this) {
+        NONE -> "بدون تتبع"
+        DRY -> "جافة"
+        STICKY -> "لزجة"
+        CREAMY -> "كريمية"
+        EGG_WHITE -> "بياض البيض (خصوبة)"
+        WATERY -> "مائية"
+    } else displayName
 }
 
 enum class IntimacyType(val displayName: String) {
     NONE("None"),
     PROTECTED("Protected"),
     UNPROTECTED("Unprotected"),
-    HIGH_LIBIDO("High Libido")
+    HIGH_LIBIDO("High Libido");
+
+    fun localized(isAr: Boolean): String = if (isAr) when (this) {
+        NONE -> "لا يوجد"
+        PROTECTED -> "محمية"
+        UNPROTECTED -> "غير محمية"
+        HIGH_LIBIDO -> "رغبة عالية"
+    } else displayName
 }
 
 enum class PregnancyChance(val displayName: String, val level: String) {
     LOW("Low chance of pregnancy", "Low"),
     MEDIUM("Medium chance of pregnancy", "Medium"),
     HIGH("High chance of pregnancy", "High"),
-    PEAK("Peak fertility today", "Peak")
+    PEAK("Peak fertility today", "Peak");
+
+    fun localizedLevel(isAr: Boolean): String = if (isAr) when (this) {
+        LOW -> "منخفضة"
+        MEDIUM -> "متوسطة"
+        HIGH -> "مرتفعة"
+        PEAK -> "ذروة"
+    } else level
 }
 
 enum class CyclePhase(
@@ -102,7 +163,49 @@ enum class CyclePhase(
         energyLevel = "Gradually slowing down",
         nutritionTip = "Complex carbohydrates (sweet potatoes, oats), seeds (sunflower, sesame), and dark chocolate.",
         workoutTip = "Moderate Pilates, steady-state cardio, swimming, or flow yoga."
-    )
+    );
+
+    fun localizedTitle(isAr: Boolean): String = if (isAr) when (this) {
+        MENSTRUAL -> "مرحلة الحيض"
+        FOLLICULAR -> "المرحلة الجريبية"
+        OVULATION -> "مرحلة الإباضة"
+        LUTEAL -> "المرحلة الأصفونية"
+    } else title
+
+    fun localizedSubtitle(isAr: Boolean): String = if (isAr) when (this) {
+        MENSTRUAL -> "الأيام 1 – 5 • وقت الراحة وتجديد الطاقة"
+        FOLLICULAR -> "الأيام 6 – 12 • تصاعد الحيوية والإبداع"
+        OVULATION -> "الأيام 13 – 16 • ذروة الخصوبة والتألق"
+        LUTEAL -> "الأيام 17 – 28 • الهدوء والاستعداد للدورة"
+    } else subtitle
+
+    fun localizedHormones(isAr: Boolean): String = if (isAr) when (this) {
+        MENSTRUAL -> "ينخفض الإستروجين والبروجستيرون لأدنى مستوياتهما لتجديد بطانة الرحم."
+        FOLLICULAR -> "يحفز هرمون FSH نمو الجريبات؛ ويرتفع الإستروجين تدريجياً لتعزيز المزاج."
+        OVULATION -> "ذروة هرمون LH تطلق البويضة. يصل الإستروجين والتستوستيرون لأعلى تركيز شهري."
+        LUTEAL -> "يرتفع البروجستيرون لدعم الجسم، ثم يتراجع تدريجياً قبل بداية الدورة."
+    } else hormoneSummary
+
+    fun localizedEnergy(isAr: Boolean): String = if (isAr) when (this) {
+        MENSTRUAL -> "هادئة ومسترخية"
+        FOLLICULAR -> "حيوية ونشاط متصاعد"
+        OVULATION -> "أعلى طاقة وثقة عالية"
+        LUTEAL -> "تباطؤ تدريجي وحاجة للراحة"
+    } else energyLevel
+
+    fun localizedNutrition(isAr: Boolean): String = if (isAr) when (this) {
+        MENSTRUAL -> "أطعمة غنية بالحديد (سبانخ، عدس)، مشروبات دافئة، والمغنيسيوم."
+        FOLLICULAR -> "أطعمة طازجة، خضروات ورقية، أطعمة مخمرة، وبروتينات خفيفة."
+        OVULATION -> "توتيات غنية بمضادات الأكسدة، خضار ورقية، وترطيب مستمر بالماء."
+        LUTEAL -> "كربوهيدرات معقدة (بطاطا حلوة، شوفان)، بذور، وشوكولاتة داكنة."
+    } else nutritionTip
+
+    fun localizedWorkout(isAr: Boolean): String = if (isAr) when (this) {
+        MENSTRUAL -> "تمارين استطالة لطيفة، يوغا مهدئة، مشي خفيف، أو راحة تامة."
+        FOLLICULAR -> "تمارين تقوية، كارديو، مشي نشط، وتجربة رياضات جديدة."
+        OVULATION -> "تمارين عالية الكثافة (HIIT)، تدريب أوزان، ورياضات جماعية."
+        LUTEAL -> "بيلاتس معتدل، يوغا انسيابية، سباحة، وتمارين إطالة."
+    } else workoutTip
 }
 
 data class DayLog(
@@ -129,7 +232,8 @@ data class UserSettings(
     val isDiscreetMode: Boolean = false,
     val isPinLocked: Boolean = false,
     val pinCode: String = "",
-    val reminderEnabled: Boolean = true
+    val reminderEnabled: Boolean = true,
+    val language: String = "system" // "system", "ar", "en"
 )
 
 data class CycleHistoryItem(
@@ -154,5 +258,5 @@ data class CycleInsightSummary(
     val isPeriodActiveToday: Boolean,
     val avgCycleLength: Int,
     val avgPeriodLength: Int,
-    val cycleRegularityScore: Int // 0-100%
+    val cycleRegularityScore: Int
 )

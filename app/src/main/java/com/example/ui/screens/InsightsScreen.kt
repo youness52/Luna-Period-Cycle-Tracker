@@ -19,7 +19,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Timeline
@@ -40,10 +39,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.R
 import com.example.data.model.CycleHistoryItem
 import com.example.data.model.CycleInsightSummary
 import com.example.data.model.CyclePhase
@@ -55,6 +57,7 @@ import com.example.ui.theme.LutealIndigo
 import com.example.ui.theme.OvulationAmber
 import com.example.ui.theme.PeriodCrimson
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @Composable
 fun InsightsScreen(
@@ -64,6 +67,10 @@ fun InsightsScreen(
     settings: UserSettings,
     modifier: Modifier = Modifier
 ) {
+    val configuration = LocalConfiguration.current
+    val locale = configuration.locales[0] ?: Locale.getDefault()
+    val isAr = locale.language == "ar"
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -73,13 +80,13 @@ fun InsightsScreen(
     ) {
         // Screen Header
         Text(
-            text = if (settings.isDiscreetMode) "Body Analytics" else "Cycle Insights",
+            text = if (settings.isDiscreetMode) stringResource(R.string.tab_insights) else stringResource(R.string.insights_title),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.ExtraBold,
             color = MaterialTheme.colorScheme.onBackground
         )
         Text(
-            text = "Patterns, cycle lengths & symptom trends",
+            text = stringResource(R.string.insights_subtitle),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -92,23 +99,23 @@ fun InsightsScreen(
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             MetricCard(
-                title = "Avg Cycle",
+                title = stringResource(R.string.avg_cycle),
                 value = "${insights.avgCycleLength}",
-                unit = "days",
+                unit = stringResource(R.string.days),
                 accentColor = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.weight(1f)
             )
             MetricCard(
-                title = "Avg Period",
+                title = stringResource(R.string.avg_period),
                 value = "${insights.avgPeriodLength}",
-                unit = "days",
+                unit = stringResource(R.string.days),
                 accentColor = PeriodCrimson,
                 modifier = Modifier.weight(1f)
             )
             MetricCard(
-                title = "Regularity",
+                title = stringResource(R.string.regularity),
                 value = "${insights.cycleRegularityScore}%",
-                unit = if (insights.cycleRegularityScore >= 80) "Regular" else "Variable",
+                unit = if (insights.cycleRegularityScore >= 80) stringResource(R.string.regular) else stringResource(R.string.variable),
                 accentColor = FertilePurple,
                 modifier = Modifier.weight(1f)
             )
@@ -118,7 +125,7 @@ fun InsightsScreen(
 
         // Historical Cycles Timeline
         Text(
-            text = "Cycle History",
+            text = stringResource(R.string.cycle_history),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface
@@ -143,12 +150,12 @@ fun InsightsScreen(
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "No recorded cycles yet",
+                        text = stringResource(R.string.no_cycles_yet),
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.bodyLarge
                     )
                     Text(
-                        text = "Log your period in the Calendar or go to Settings to seed sample data.",
+                        text = stringResource(R.string.no_cycles_desc),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -157,7 +164,7 @@ fun InsightsScreen(
         } else {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 cycleHistory.forEach { item ->
-                    CycleHistoryCard(item = item, avgCycle = insights.avgCycleLength)
+                    CycleHistoryCard(item = item, locale = locale)
                 }
             }
         }
@@ -166,20 +173,20 @@ fun InsightsScreen(
 
         // Symptom & Mood Frequency Breakdown
         Text(
-            text = "Most Frequent Symptoms",
+            text = stringResource(R.string.frequent_symptoms),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface
         )
         Spacer(modifier = Modifier.height(8.dp))
 
-        SymptomFrequencyCard(allLogs = allLogs)
+        SymptomFrequencyCard(allLogs = allLogs, isAr = isAr)
 
         Spacer(modifier = Modifier.height(24.dp))
 
         // Cycle Phases Educational Guide
         Text(
-            text = "Understanding Your 4 Cycle Phases",
+            text = stringResource(R.string.understanding_phases),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface
@@ -187,10 +194,10 @@ fun InsightsScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            PhaseGuideCard(phase = CyclePhase.MENSTRUAL, color = PeriodCrimson)
-            PhaseGuideCard(phase = CyclePhase.FOLLICULAR, color = FollicularTeal)
-            PhaseGuideCard(phase = CyclePhase.OVULATION, color = OvulationAmber)
-            PhaseGuideCard(phase = CyclePhase.LUTEAL, color = LutealIndigo)
+            PhaseGuideCard(phase = CyclePhase.MENSTRUAL, color = PeriodCrimson, isAr = isAr)
+            PhaseGuideCard(phase = CyclePhase.FOLLICULAR, color = FollicularTeal, isAr = isAr)
+            PhaseGuideCard(phase = CyclePhase.OVULATION, color = OvulationAmber, isAr = isAr)
+            PhaseGuideCard(phase = CyclePhase.LUTEAL, color = LutealIndigo, isAr = isAr)
         }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -239,8 +246,8 @@ fun MetricCard(
 }
 
 @Composable
-fun CycleHistoryCard(item: CycleHistoryItem, avgCycle: Int) {
-    val dateFormatter = DateTimeFormatter.ofPattern("MMM d")
+fun CycleHistoryCard(item: CycleHistoryItem, locale: Locale) {
+    val dateFormatter = DateTimeFormatter.ofPattern("MMM d", locale)
 
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
@@ -258,7 +265,7 @@ fun CycleHistoryCard(item: CycleHistoryItem, avgCycle: Int) {
             Column {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = if (item.isCurrent) "Current Cycle" else "Cycle #${item.cycleNumber}",
+                        text = if (item.isCurrent) stringResource(R.string.current_cycle) else stringResource(R.string.cycle_number, item.cycleNumber),
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.bodyMedium
                     )
@@ -269,7 +276,7 @@ fun CycleHistoryCard(item: CycleHistoryItem, avgCycle: Int) {
                             shape = CircleShape
                         ) {
                             Text(
-                                text = "Ongoing",
+                                text = stringResource(R.string.ongoing),
                                 fontSize = 10.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 color = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -282,7 +289,7 @@ fun CycleHistoryCard(item: CycleHistoryItem, avgCycle: Int) {
                 val dateRange = if (item.endDate != null) {
                     "${item.startDate.format(dateFormatter)} – ${item.endDate.format(dateFormatter)}"
                 } else {
-                    "Started ${item.startDate.format(dateFormatter)}"
+                    "${item.startDate.format(dateFormatter)}"
                 }
                 Text(
                     text = dateRange,
@@ -293,13 +300,13 @@ fun CycleHistoryCard(item: CycleHistoryItem, avgCycle: Int) {
 
             Column(horizontalAlignment = Alignment.End) {
                 Text(
-                    text = "${item.cycleLengthDays} days",
+                    text = "${item.cycleLengthDays} " + stringResource(R.string.days),
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp,
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = "Period: ${item.periodLengthDays} days",
+                    text = "${item.periodLengthDays} " + stringResource(R.string.days),
                     fontSize = 11.sp,
                     color = PeriodCrimson
                 )
@@ -309,8 +316,7 @@ fun CycleHistoryCard(item: CycleHistoryItem, avgCycle: Int) {
 }
 
 @Composable
-fun SymptomFrequencyCard(allLogs: List<DayLog>) {
-    // Count frequencies of symptoms
+fun SymptomFrequencyCard(allLogs: List<DayLog>, isAr: Boolean) {
     val symptomCounts = mutableMapOf<com.example.data.model.SymptomType, Int>()
     allLogs.forEach { log ->
         log.symptoms.forEach { symptom ->
@@ -330,7 +336,7 @@ fun SymptomFrequencyCard(allLogs: List<DayLog>) {
         Column(modifier = Modifier.padding(16.dp)) {
             if (sorted.isEmpty()) {
                 Text(
-                    text = "No symptoms recorded yet. As you log how you feel, patterns will appear here.",
+                    text = stringResource(R.string.no_frequent_symptoms),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -343,12 +349,12 @@ fun SymptomFrequencyCard(allLogs: List<DayLog>) {
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Text(
-                                text = "${symptom.emoji} ${symptom.displayName}",
+                                text = "${symptom.emoji} ${symptom.localized(isAr)}",
                                 fontSize = 13.sp,
                                 fontWeight = FontWeight.Medium
                             )
                             Text(
-                                text = "$count times",
+                                text = stringResource(R.string.times, count),
                                 fontSize = 12.sp,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -372,7 +378,7 @@ fun SymptomFrequencyCard(allLogs: List<DayLog>) {
 }
 
 @Composable
-fun PhaseGuideCard(phase: CyclePhase, color: Color) {
+fun PhaseGuideCard(phase: CyclePhase, color: Color, isAr: Boolean) {
     var isExpanded by remember { mutableStateOf(false) }
 
     Card(
@@ -399,12 +405,12 @@ fun PhaseGuideCard(phase: CyclePhase, color: Color) {
                     Spacer(modifier = Modifier.width(10.dp))
                     Column {
                         Text(
-                            text = phase.title,
+                            text = phase.localizedTitle(isAr),
                             fontWeight = FontWeight.Bold,
                             fontSize = 14.sp
                         )
                         Text(
-                            text = phase.subtitle,
+                            text = phase.localizedSubtitle(isAr),
                             fontSize = 11.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -424,17 +430,17 @@ fun PhaseGuideCard(phase: CyclePhase, color: Color) {
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Text(
-                        text = "🧬 Hormones: ${phase.hormoneSummary}",
+                        text = (if (isAr) "🧬 الهرمونات: " else "🧬 Hormones: ") + phase.localizedHormones(isAr),
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
-                        text = "🥗 Nutrition: ${phase.nutritionTip}",
+                        text = (if (isAr) "🥗 التغذية: " else "🥗 Nutrition: ") + phase.localizedNutrition(isAr),
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
-                        text = "🧘 Movement: ${phase.workoutTip}",
+                        text = (if (isAr) "🧘 الحركة: " else "🧘 Movement: ") + phase.localizedWorkout(isAr),
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

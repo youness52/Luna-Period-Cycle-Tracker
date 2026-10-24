@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -31,20 +30,16 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
-import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -54,10 +49,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.R
 import com.example.data.model.CervicalMucus
 import com.example.data.model.CrampLevel
 import com.example.data.model.DayLog
@@ -69,6 +67,7 @@ import com.example.ui.theme.PeriodCrimson
 import com.example.ui.theme.WaterBlue
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -81,6 +80,9 @@ fun LogDayBottomSheet(
     onDismiss: () -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val configuration = LocalConfiguration.current
+    val locale = configuration.locales[0] ?: Locale.getDefault()
+    val isAr = locale.language == "ar"
 
     var isPeriod by remember { mutableStateOf(existingLog?.isPeriod ?: false) }
     var flowIntensity by remember { mutableStateOf(existingLog?.flowIntensity ?: FlowIntensity.NONE) }
@@ -115,13 +117,13 @@ fun LogDayBottomSheet(
             ) {
                 Column {
                     Text(
-                        text = "Daily Symptom Log",
+                        text = stringResource(R.string.daily_symptom_log),
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = date.format(DateTimeFormatter.ofPattern("EEEE, MMM d, yyyy")),
+                        text = date.format(DateTimeFormatter.ofPattern("EEEE, MMM d, yyyy", locale)),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Medium
@@ -159,7 +161,7 @@ fun LogDayBottomSheet(
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "Period Flow",
+                                text = stringResource(R.string.period_flow),
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold
                             )
@@ -182,7 +184,7 @@ fun LogDayBottomSheet(
                             shape = RoundedCornerShape(12.dp),
                             modifier = Modifier.testTag("toggle_period_bleeding")
                         ) {
-                            Text(text = if (isPeriod) "Bleeding" else "No Flow", fontSize = 12.sp)
+                            Text(text = if (isPeriod) stringResource(R.string.bleeding) else stringResource(R.string.no_flow), fontSize = 12.sp)
                         }
                     }
 
@@ -193,11 +195,11 @@ fun LogDayBottomSheet(
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             listOf(
-                                FlowIntensity.SPOTTING to "Spotting",
-                                FlowIntensity.LIGHT to "Light",
-                                FlowIntensity.MEDIUM to "Medium",
-                                FlowIntensity.HEAVY to "Heavy"
-                            ).forEach { (flow, label) ->
+                                FlowIntensity.SPOTTING,
+                                FlowIntensity.LIGHT,
+                                FlowIntensity.MEDIUM,
+                                FlowIntensity.HEAVY
+                            ).forEach { flow ->
                                 val isSelected = flowIntensity == flow
                                 Box(
                                     modifier = Modifier
@@ -217,7 +219,7 @@ fun LogDayBottomSheet(
                                     contentAlignment = Alignment.Center
                                 ) {
                                     Text(
-                                        text = label,
+                                        text = flow.localized(isAr),
                                         fontSize = 12.sp,
                                         fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
                                         color = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurface
@@ -233,7 +235,7 @@ fun LogDayBottomSheet(
 
             // Section 2: Cramps & Pain
             Text(
-                text = "Cramps & Pain Intensity",
+                text = stringResource(R.string.cramps_pain),
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -248,7 +250,7 @@ fun LogDayBottomSheet(
                     FilterChip(
                         selected = isSelected,
                         onClick = { crampLevel = level },
-                        label = { Text(level.displayName, fontSize = 12.sp) },
+                        label = { Text(level.localized(isAr), fontSize = 12.sp) },
                         modifier = Modifier.weight(1f)
                     )
                 }
@@ -258,7 +260,7 @@ fun LogDayBottomSheet(
 
             // Section 3: Physical Symptoms
             Text(
-                text = "Physical Symptoms",
+                text = stringResource(R.string.physical_symptoms),
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -279,7 +281,7 @@ fun LogDayBottomSheet(
                                 selectedSymptoms + symptom
                             }
                         },
-                        label = { Text("${symptom.emoji} ${symptom.displayName}", fontSize = 12.sp) }
+                        label = { Text("${symptom.emoji} ${symptom.localized(isAr)}", fontSize = 12.sp) }
                     )
                 }
             }
@@ -288,7 +290,7 @@ fun LogDayBottomSheet(
 
             // Section 4: Moods & Emotions
             Text(
-                text = "Mood & Mind",
+                text = stringResource(R.string.mood_mind),
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -309,7 +311,7 @@ fun LogDayBottomSheet(
                                 selectedMoods + mood
                             }
                         },
-                        label = { Text("${mood.emoji} ${mood.displayName}", fontSize = 12.sp) }
+                        label = { Text("${mood.emoji} ${mood.localized(isAr)}", fontSize = 12.sp) }
                     )
                 }
             }
@@ -318,7 +320,7 @@ fun LogDayBottomSheet(
 
             // Section 5: Cervical Mucus
             Text(
-                text = "Cervical Fluid / Mucus",
+                text = stringResource(R.string.cervical_fluid),
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -333,7 +335,7 @@ fun LogDayBottomSheet(
                     FilterChip(
                         selected = isSelected,
                         onClick = { cervicalMucus = mucus },
-                        label = { Text(mucus.displayName, fontSize = 12.sp) }
+                        label = { Text(mucus.localized(isAr), fontSize = 12.sp) }
                     )
                 }
             }
@@ -342,7 +344,7 @@ fun LogDayBottomSheet(
 
             // Section 6: Intimacy & Sex Drive
             Text(
-                text = "Intimacy & Libido",
+                text = stringResource(R.string.intimacy_libido),
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -357,7 +359,7 @@ fun LogDayBottomSheet(
                     FilterChip(
                         selected = isSelected,
                         onClick = { intimacy = intimacyType },
-                        label = { Text(intimacyType.displayName, fontSize = 11.sp) },
+                        label = { Text(intimacyType.localized(isAr), fontSize = 11.sp) },
                         modifier = Modifier.weight(1f)
                     )
                 }
@@ -380,7 +382,7 @@ fun LogDayBottomSheet(
                         modifier = Modifier.padding(12.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = "Water Intake", style = MaterialTheme.typography.labelMedium)
+                        Text(text = stringResource(R.string.water_intake), style = MaterialTheme.typography.labelMedium)
                         Spacer(modifier = Modifier.height(6.dp))
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
@@ -418,7 +420,7 @@ fun LogDayBottomSheet(
                         modifier = Modifier.padding(12.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = "Sleep Rest", style = MaterialTheme.typography.labelMedium)
+                        Text(text = stringResource(R.string.sleep_rest), style = MaterialTheme.typography.labelMedium)
                         Spacer(modifier = Modifier.height(6.dp))
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
@@ -453,7 +455,7 @@ fun LogDayBottomSheet(
             OutlinedTextField(
                 value = bbtInput,
                 onValueChange = { bbtInput = it },
-                label = { Text("Basal Body Temp (°$temperatureUnit)") },
+                label = { Text(stringResource(R.string.bbt_label, temperatureUnit)) },
                 placeholder = { Text(if (temperatureUnit == "C") "36.6" else "97.8") },
                 singleLine = true,
                 shape = RoundedCornerShape(12.dp),
@@ -466,8 +468,8 @@ fun LogDayBottomSheet(
             OutlinedTextField(
                 value = notes,
                 onValueChange = { notes = it },
-                label = { Text("Private Daily Notes & Medication") },
-                placeholder = { Text("Record any thoughts, vitamins taken, or body sensations...") },
+                label = { Text(stringResource(R.string.notes_label)) },
+                placeholder = { Text(stringResource(R.string.notes_placeholder)) },
                 minLines = 3,
                 maxLines = 5,
                 shape = RoundedCornerShape(12.dp),
@@ -503,7 +505,7 @@ fun LogDayBottomSheet(
                     .height(52.dp)
                     .testTag("save_day_log_button")
             ) {
-                Text(text = "Save Entry", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                Text(text = stringResource(R.string.save_entry), fontSize = 16.sp, fontWeight = FontWeight.Bold)
             }
 
             if (existingLog != null) {
@@ -519,7 +521,7 @@ fun LogDayBottomSheet(
                 ) {
                     Icon(imageVector = Icons.Default.Delete, contentDescription = null, modifier = Modifier.size(16.dp))
                     Spacer(modifier = Modifier.width(6.dp))
-                    Text(text = "Clear Log For This Day")
+                    Text(text = stringResource(R.string.clear_log_day))
                 }
             }
         }

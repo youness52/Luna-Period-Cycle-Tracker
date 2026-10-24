@@ -3,6 +3,7 @@ package com.example.ui.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,13 +17,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.filled.Security
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -40,16 +38,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.R
 import com.example.data.model.UserSettings
 
 @Composable
@@ -73,13 +72,13 @@ fun SettingsScreen(
             .testTag("settings_screen")
     ) {
         Text(
-            text = "Privacy & Settings",
+            text = stringResource(R.string.privacy_settings),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.ExtraBold,
             color = MaterialTheme.colorScheme.onBackground
         )
         Text(
-            text = "Your intimate health data remains 100% on this device",
+            text = stringResource(R.string.privacy_subtitle),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -113,13 +112,13 @@ fun SettingsScreen(
                 Spacer(modifier = Modifier.width(14.dp))
                 Column {
                     Text(
-                        text = "100% Local & Private",
+                        text = stringResource(R.string.privacy_card_title),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = "No cloud syncing, no ad trackers, and no accounts required. All cycle and symptom entries are encrypted in local device storage.",
+                        text = stringResource(R.string.privacy_card_desc),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -131,7 +130,7 @@ fun SettingsScreen(
 
         // Privacy Controls Section
         Text(
-            text = "Privacy Controls",
+            text = stringResource(R.string.privacy_controls),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface
@@ -153,12 +152,12 @@ fun SettingsScreen(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Discreet Display Mode",
+                            text = stringResource(R.string.discreet_mode),
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.SemiBold
                         )
                         Text(
-                            text = "Hides words like 'Menstruation' and replaces them with neutral terms in public.",
+                            text = stringResource(R.string.discreet_mode_desc),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -180,12 +179,12 @@ fun SettingsScreen(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "App PIN Lock",
+                            text = stringResource(R.string.app_pin_lock),
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.SemiBold
                         )
                         Text(
-                            text = if (settings.isPinLocked) "Protected by 4-digit PIN" else "Require PIN code to view cycle data",
+                            text = if (settings.isPinLocked) stringResource(R.string.app_pin_locked_desc) else stringResource(R.string.app_pin_unlocked_desc),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -208,7 +207,7 @@ fun SettingsScreen(
 
         // Cycle Calculation Parameters
         Text(
-            text = "Cycle Parameters",
+            text = stringResource(R.string.cycle_parameters),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface
@@ -224,10 +223,10 @@ fun SettingsScreen(
             Column(modifier = Modifier.padding(16.dp)) {
                 // Avg Cycle Length Stepper
                 ParameterStepper(
-                    title = "Target Cycle Length",
-                    subtitle = "Usually between 21 and 35 days",
+                    title = stringResource(R.string.target_cycle_length),
+                    subtitle = stringResource(R.string.target_cycle_subtitle),
                     value = settings.avgCycleLength,
-                    unit = "days",
+                    unit = stringResource(R.string.days),
                     onDecrease = {
                         if (settings.avgCycleLength > 20) {
                             onSaveSettings(settings.copy(avgCycleLength = settings.avgCycleLength - 1))
@@ -244,10 +243,10 @@ fun SettingsScreen(
 
                 // Avg Period Length Stepper
                 ParameterStepper(
-                    title = "Target Period Duration",
-                    subtitle = "Usually between 3 and 7 days",
+                    title = stringResource(R.string.target_period_length),
+                    subtitle = stringResource(R.string.target_period_subtitle),
                     value = settings.avgPeriodLength,
-                    unit = "days",
+                    unit = stringResource(R.string.days),
                     onDecrease = {
                         if (settings.avgPeriodLength > 2) {
                             onSaveSettings(settings.copy(avgPeriodLength = settings.avgPeriodLength - 1))
@@ -270,12 +269,12 @@ fun SettingsScreen(
                 ) {
                     Column {
                         Text(
-                            text = "Temperature Unit",
+                            text = stringResource(R.string.temp_unit),
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.SemiBold
                         )
                         Text(
-                            text = "For Basal Body Temperature tracking",
+                            text = stringResource(R.string.temp_unit_desc),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -297,6 +296,63 @@ fun SettingsScreen(
                         }
                     }
                 }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // App Language Selector (English / العربية / System)
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.Language,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = stringResource(R.string.language_setting),
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                    Text(
+                        text = stringResource(R.string.language_setting_desc),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        listOf(
+                            "system" to stringResource(R.string.lang_system),
+                            "en" to stringResource(R.string.lang_en),
+                            "ar" to stringResource(R.string.lang_ar)
+                        ).forEach { (langCode, label) ->
+                            val isSelected = settings.language == langCode
+                            Button(
+                                onClick = { onSaveSettings(settings.copy(language = langCode)) },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                                    contentColor = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                                ),
+                                shape = RoundedCornerShape(12.dp),
+                                contentPadding = PaddingValues(horizontal = 6.dp, vertical = 6.dp),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .testTag("lang_btn_$langCode")
+                            ) {
+                                Text(
+                                    text = label,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 11.sp,
+                                    maxLines = 1
+                                )
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -304,7 +360,7 @@ fun SettingsScreen(
 
         // Data & Management
         Text(
-            text = "Data Management",
+            text = stringResource(R.string.data_management),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface
@@ -332,7 +388,7 @@ fun SettingsScreen(
                 ) {
                     Icon(imageVector = Icons.Default.Add, contentDescription = null, modifier = Modifier.size(16.dp))
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "Load Sample 3-Month Cycle Data")
+                    Text(text = stringResource(R.string.load_sample_data))
                 }
 
                 // Clear all data
@@ -344,7 +400,7 @@ fun SettingsScreen(
                 ) {
                     Icon(imageVector = Icons.Default.Delete, contentDescription = null, modifier = Modifier.size(16.dp))
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "Erase All Logs & Reset")
+                    Text(text = stringResource(R.string.erase_all_data))
                 }
             }
         }
@@ -353,7 +409,7 @@ fun SettingsScreen(
 
         // Medical disclaimer
         Text(
-            text = "Medical Disclaimer: Luna is intended for personal cycle tracking and wellness insights only. It is not a clinical diagnostic tool or a guaranteed contraceptive method.",
+            text = stringResource(R.string.medical_disclaimer),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
             lineHeight = 16.sp
@@ -366,8 +422,8 @@ fun SettingsScreen(
     if (showClearDialog) {
         AlertDialog(
             onDismissRequest = { showClearDialog = false },
-            title = { Text(text = "Erase All Data?") },
-            text = { Text(text = "This will permanently delete all recorded periods, daily symptoms, moods, and notes from this device.") },
+            title = { Text(text = stringResource(R.string.erase_dialog_title)) },
+            text = { Text(text = stringResource(R.string.erase_dialog_desc)) },
             confirmButton = {
                 Button(
                     onClick = {
@@ -376,12 +432,12 @@ fun SettingsScreen(
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
                 ) {
-                    Text(text = "Erase Everything")
+                    Text(text = stringResource(R.string.erase_confirm))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showClearDialog = false }) {
-                    Text(text = "Cancel")
+                    Text(text = stringResource(R.string.cancel))
                 }
             }
         )
@@ -391,11 +447,11 @@ fun SettingsScreen(
     if (showSeedSuccessDialog) {
         AlertDialog(
             onDismissRequest = { showSeedSuccessDialog = false },
-            title = { Text(text = "Sample Cycles Loaded!") },
-            text = { Text(text = "3 past cycles with realistic flows and symptoms have been added. You can now explore the Calendar, Insights timeline, and predicted ovulation dates.") },
+            title = { Text(text = stringResource(R.string.seed_success_title)) },
+            text = { Text(text = stringResource(R.string.seed_success_desc)) },
             confirmButton = {
                 Button(onClick = { showSeedSuccessDialog = false }) {
-                    Text(text = "Explore Luna")
+                    Text(text = stringResource(R.string.explore_luna))
                 }
             }
         )
@@ -405,16 +461,16 @@ fun SettingsScreen(
     if (showPinDialog) {
         AlertDialog(
             onDismissRequest = { showPinDialog = false },
-            title = { Text(text = "Set 4-Digit Privacy PIN") },
+            title = { Text(text = stringResource(R.string.pin_dialog_title)) },
             text = {
                 Column {
-                    Text(text = "Enter a 4-digit PIN code to lock access to your cycle logs:")
+                    Text(text = stringResource(R.string.pin_dialog_desc))
                     Spacer(modifier = Modifier.height(12.dp))
                     OutlinedTextField(
                         value = pinInput,
                         onValueChange = { if (it.length <= 4) pinInput = it },
                         singleLine = true,
-                        placeholder = { Text("e.g. 1234") },
+                        placeholder = { Text("••••") },
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
@@ -429,12 +485,12 @@ fun SettingsScreen(
                     },
                     enabled = pinInput.length >= 4
                 ) {
-                    Text(text = "Set PIN")
+                    Text(text = stringResource(R.string.set_pin))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showPinDialog = false }) {
-                    Text(text = "Cancel")
+                    Text(text = stringResource(R.string.cancel))
                 }
             }
         )
@@ -482,7 +538,7 @@ fun ParameterStepper(
                 text = "$value $unit",
                 fontWeight = FontWeight.Bold,
                 fontSize = 14.sp,
-                modifier = Modifier.width(64.dp),
+                modifier = Modifier.width(68.dp),
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
             IconButton(

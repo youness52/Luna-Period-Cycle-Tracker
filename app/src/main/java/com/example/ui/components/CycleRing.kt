@@ -36,10 +36,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.R
 import com.example.data.model.CycleInsightSummary
 import com.example.data.model.CyclePhase
 import com.example.ui.theme.FertilePurple
@@ -54,6 +56,7 @@ import kotlin.math.sin
 fun CycleRing(
     insights: CycleInsightSummary,
     isDiscreetMode: Boolean,
+    isAr: Boolean = false,
     onQuickTogglePeriod: () -> Unit,
     onOpenLogger: () -> Unit,
     modifier: Modifier = Modifier
@@ -81,7 +84,6 @@ fun CycleRing(
             // Draw Circular Track and Phase Arcs
             val trackColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
             val periodLength = insights.avgPeriodLength
-            val lutealStart = totalDays - 14
 
             Canvas(modifier = Modifier.size(240.dp)) {
                 val strokeWidth = 18.dp.toPx()
@@ -172,14 +174,23 @@ fun CycleRing(
             ) {
                 // Phase Badge
                 val phaseTitle = if (isDiscreetMode) {
-                    when (insights.currentPhase) {
-                        CyclePhase.MENSTRUAL -> "Flow Phase"
-                        CyclePhase.FOLLICULAR -> "Phase I"
-                        CyclePhase.OVULATION -> "Peak Phase"
-                        CyclePhase.LUTEAL -> "Phase II"
+                    if (isAr) {
+                        when (insights.currentPhase) {
+                            CyclePhase.MENSTRUAL -> "المرحلة الأولى"
+                            CyclePhase.FOLLICULAR -> "مرحلة النشاط"
+                            CyclePhase.OVULATION -> "مرحلة الذروة"
+                            CyclePhase.LUTEAL -> "مرحلة الهدوء"
+                        }
+                    } else {
+                        when (insights.currentPhase) {
+                            CyclePhase.MENSTRUAL -> "Flow Phase"
+                            CyclePhase.FOLLICULAR -> "Phase I"
+                            CyclePhase.OVULATION -> "Peak Phase"
+                            CyclePhase.LUTEAL -> "Phase II"
+                        }
                     }
                 } else {
-                    insights.currentPhase.title
+                    insights.currentPhase.localizedTitle(isAr)
                 }
 
                 Surface(
@@ -209,7 +220,7 @@ fun CycleRing(
 
                 // Big Day Number
                 Text(
-                    text = "Day ${insights.cycleDay}",
+                    text = stringResource(R.string.day_prefix, insights.cycleDay),
                     style = MaterialTheme.typography.displayMedium,
                     fontWeight = FontWeight.ExtraBold,
                     color = MaterialTheme.colorScheme.onBackground
@@ -217,10 +228,10 @@ fun CycleRing(
 
                 // Subtitle / Next Period countdown
                 val subtitleText = when {
-                    insights.isPeriodActiveToday -> "Menstruation active"
-                    insights.daysUntilPeriod > 0 -> "Period in ${insights.daysUntilPeriod} days"
-                    insights.daysUntilPeriod == 0 -> "Period expected today"
-                    else -> "Period late by ${-insights.daysUntilPeriod} days"
+                    insights.isPeriodActiveToday -> stringResource(R.string.period_active)
+                    insights.daysUntilPeriod > 0 -> stringResource(R.string.period_in_days, insights.daysUntilPeriod)
+                    insights.daysUntilPeriod == 0 -> stringResource(R.string.period_expected_today)
+                    else -> stringResource(R.string.period_late_by, -insights.daysUntilPeriod)
                 }
 
                 Text(
@@ -258,7 +269,7 @@ fun CycleRing(
                         )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
-                            text = "${insights.pregnancyChance.level} Fertility",
+                            text = stringResource(R.string.fertility_level, insights.pregnancyChance.localizedLevel(isAr)),
                             fontSize = 11.sp,
                             fontWeight = FontWeight.SemiBold,
                             color = FertilePurple
@@ -294,7 +305,7 @@ fun CycleRing(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = if (insights.isPeriodActiveToday) "Period Logged" else "Log Period",
+                    text = if (insights.isPeriodActiveToday) stringResource(R.string.period_logged) else stringResource(R.string.log_period),
                     fontWeight = FontWeight.SemiBold
                 )
             }
@@ -308,7 +319,7 @@ fun CycleRing(
                     .testTag("open_symptom_logger_button")
             ) {
                 Text(
-                    text = "Log Symptoms",
+                    text = stringResource(R.string.log_symptoms),
                     fontWeight = FontWeight.SemiBold
                 )
             }

@@ -1,0 +1,129 @@
+<resources>
+    <string name="app_name">لونا</string>
+    <string name="discreet_app_name">سجلي اليومي</string>
+    <string name="tab_today">اليوم</string>
+    <string name="tab_calendar">التقويم</string>
+    <string name="tab_insights">التحليلات</string>
+    <string name="tab_settings">الخصوصية</string>
+    <string name="private_badge">خاص ومحلي</string>
+
+    <!-- Cycle Ring & Today -->
+    <string name="log_period">تسجيل الدورة</string>
+    <string name="period_logged">تم تسجيل الدورة</string>
+    <string name="log_symptoms">تسجيل الأعراض</string>
+    <string name="day_prefix">اليوم %1$d</string>
+    <string name="period_active">فترة الحيض نشطة</string>
+    <string name="period_in_days">الدورة بعد %1$d أيام</string>
+    <string name="period_expected_today">الدورة متوقعة اليوم</string>
+    <string name="period_late_by">الدورة متأخرة بـ %1$d أيام</string>
+    <string name="fertility_level">خصوبة %1$s</string>
+    <string name="wellness_hydration">الصحة اليومية والماء</string>
+    <string name="water">الماء</string>
+    <string name="water_glasses">%1$d أكواب</string>
+    <string name="logged_symptoms_prefix">الأعراض المسجلة: </string>
+    <string name="mood_prefix">المزاج: </string>
+
+    <!-- Calendar -->
+    <string name="calendar_title">تقويم الدورة</string>
+    <string name="calendar_subtitle">المسي أي يوم لعرض أو تسجيل الأعراض</string>
+    <string name="today">اليوم</string>
+    <string name="legend_period">الحيض</string>
+    <string name="legend_predicted">متوقع</string>
+    <string name="legend_fertile">فترة الخصوبة</string>
+    <string name="legend_ovulation">الإباضة</string>
+    <string name="menstruation_logged">تم تسجيل الحيض</string>
+    <string name="predicted_period_day">يوم متوقع للحيض</string>
+    <string name="estimated_ovulation_day">يوم الإباضة المقدر</string>
+    <string name="fertile_window">فترة الخصوبة</string>
+    <string name="cycle_day">يوم الدورة</string>
+    <string name="edit_log">تعديل التسجيل</string>
+    <string name="log_day">تسجيل اليوم</string>
+    <string name="no_symptoms_logged">لم تسجلي أي أعراض أو تدفق لهذا اليوم. انقري أعلاه لتسجيل حالتك.</string>
+    <string name="flow_label">التدفق: %1$s</string>
+    <string name="cramps_label">التقلصات: %1$s</string>
+    <string name="symptoms_label">الأعراض:</string>
+
+    <!-- Insights -->
+    <string name="insights_title">تحليلات الدورة</string>
+    <string name="insights_subtitle">الأنماط، مدة الدورة وتتبع الأعراض</string>
+    <string name="avg_cycle">معدل الدورة</string>
+    <string name="avg_period">معدل الحيض</string>
+    <string name="regularity">الانتظام</string>
+    <string name="regular">منتظمة</string>
+    <string name="variable">متغيرة</string>
+    <string name="days">أيام</string>
+    <string name="cycle_history">سجل الدورات السابقة</string>
+    <string name="no_cycles_yet">لا توجد دورات مسجلة بعد</string>
+    <string name="no_cycles_desc">سجلي دورتك في التقويم أو توجهي للإعدادات لتحميل بيانات تجريبية.</string>
+    <string name="current_cycle">الدورة الحالية</string>
+    <string name="ongoing">مستمرة</string>
+    <string name="cycle_number">الدورة رقم %1$d</string>
+    <string name="frequent_symptoms">الأعراض الأكثر تكراراً</string>
+    <string name="no_frequent_symptoms">لم يتم تسجيل أعراض بعد. ستظهر الأنماط هنا مع تسجيلك المستمر.</string>
+    <string name="times">%1$d مرات</string>
+    <string name="understanding_phases">دليلك لمراحل الدورة الأربع</string>
+
+    <!-- Privacy & Settings -->
+    <string name="privacy_settings">الخصوصية والإعدادات</string>
+    <string name="privacy_subtitle">بياناتك الصحية الخاصة تبقى 100% على هذا الجهاز فقط</string>
+    <string name="privacy_card_title">خاص ومحلي 100%</string>
+    <string name="privacy_card_desc">لا توجد مزامنة سحابية، لا متتبعات إعلانية، ولا حاجة لأي حساب. جميع بياناتك مشفرة ومحفوظة على جهازك بأمان.</string>
+    <string name="privacy_controls">خيارات الخصوصية</string>
+    <string name="discreet_mode">وضع العرض الخفي</string>
+    <string name="discreet_mode_desc">يخفي الكلمات الصريحة مثل \'الحيض\' ويستبدلها بتسميات محايدة في الأماكن العامة.</string>
+    <string name="app_pin_lock">قفل التطبيق برمز PIN</string>
+    <string name="app_pin_locked_desc">محمي برمز سري من 4 أرقام</string>
+    <string name="app_pin_unlocked_desc">طلب رمز سري لعرض بيانات الدورة</string>
+    <string name="cycle_parameters">خصائص الدورة</string>
+    <string name="target_cycle_length">طول الدورة المعتاد</string>
+    <string name="target_cycle_subtitle">عادة بين 21 و 35 يوماً</string>
+    <string name="target_period_length">مدة الحيض المعتادة</string>
+    <string name="target_period_subtitle">عادة بين 3 و 7 أيام</string>
+    <string name="temp_unit">وحدة قياس الحرارة</string>
+    <string name="temp_unit_desc">لتتبع درجة حرارة الجسم الأساسية</string>
+    <string name="language_setting">لغة التطبيق</string>
+    <string name="language_setting_desc">اختاري اللغة العربية أو الإنجليزية</string>
+    <string name="lang_system">لغة النظام</string>
+    <string name="lang_en">English (الإنجليزية)</string>
+    <string name="lang_ar">العربية</string>
+    <string name="data_management">إدارة البيانات</string>
+    <string name="load_sample_data">تحميل بيانات تجريبية لـ 3 دورات</string>
+    <string name="erase_all_data">مسح كافة البيانات وإعادة الضبط</string>
+    <string name="medical_disclaimer">إخلاء مسؤولية طبية: تطبيق لونا مخصص للمتابعة الشخصية للدورة والوعي الصحي فقط. لا يُعد أداة تشخيص طبي ولا وسيلة معتمدة لمنع الحمل.</string>
+
+    <!-- Dialogs -->
+    <string name="erase_dialog_title">مسح كافة البيانات؟</string>
+    <string name="erase_dialog_desc">سيتم حذف جميع السجلات المسجلة وفترات الحيض والأعراض والملاحظات نهائياً من هذا الجهاز.</string>
+    <string name="erase_confirm">مسح كل شيء</string>
+    <string name="cancel">إلغاء</string>
+    <string name="seed_success_title">تم تحميل البيانات التجريبية!</string>
+    <string name="seed_success_desc">تمت إضافة 3 دورات سابقة مع أعراض واقعية. يمكنك الآن استكشاف التقويم ومخطط التحليلات وتوقعات الإباضة.</string>
+    <string name="explore_luna">استكشاف لونا</string>
+    <string name="pin_dialog_title">تعيين رمز PIN من 4 أرقام</string>
+    <string name="pin_dialog_desc">أدخلي رمزاً مكوناً من 4 أرقام لقفل سجلات دورتك:</string>
+    <string name="set_pin">تعيين الرمز</string>
+
+    <!-- Pin Lock Screen -->
+    <string name="luna_locked">تطبيق لونا مقفل</string>
+    <string name="enter_pin_desc">أدخلي رمز PIN المكون من 4 أرقام للوصول إلى بياناتك</string>
+    <string name="incorrect_pin">رمز PIN غير صحيح. يرجى المحاولة ثانية.</string>
+    <string name="unlock">فتح القفل</string>
+
+    <!-- Log Sheet -->
+    <string name="daily_symptom_log">سجل الأعراض اليومي</string>
+    <string name="period_flow">تدفق الحيض</string>
+    <string name="bleeding">نزيف حيض</string>
+    <string name="no_flow">لا يوجد حيض</string>
+    <string name="cramps_pain">شدة التقلصات والألم</string>
+    <string name="physical_symptoms">الأعراض الجسدية</string>
+    <string name="mood_mind">المزاج والحالة النفسية</string>
+    <string name="cervical_fluid">إفرازات عنق الرحم</string>
+    <string name="intimacy_libido">العلاقة الحميمية والرغبة</string>
+    <string name="water_intake">شرب الماء</string>
+    <string name="sleep_rest">ساعات النوم</string>
+    <string name="bbt_label">حرارة الجسم الأساسية (°%1$s)</string>
+    <string name="notes_label">ملاحظات خاصة وأدوية</string>
+    <string name="notes_placeholder">سجلي أي خواطر، فيتامينات تناولتها، أو تغيرات جسدية...</string>
+    <string name="save_entry">حفظ التسجيل</string>
+    <string name="clear_log_day">مسح تسجيل هذا اليوم</string>
+</resources>

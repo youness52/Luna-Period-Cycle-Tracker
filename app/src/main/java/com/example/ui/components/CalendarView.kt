@@ -43,13 +43,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.R
 import com.example.data.model.DayLog
-import com.example.data.model.FlowIntensity
 import com.example.data.model.UserSettings
 import com.example.domain.CycleEngine
 import com.example.ui.theme.FertileLight
@@ -76,6 +78,9 @@ fun CalendarView(
 ) {
     var currentMonth by remember { mutableStateOf(YearMonth.from(selectedDate)) }
     val today = LocalDate.now()
+    val configuration = LocalConfiguration.current
+    val locale = configuration.locales[0] ?: Locale.getDefault()
+    val isAr = locale.language == "ar"
 
     // Compute status map for current month view
     val startOfMonth = currentMonth.atDay(1)
@@ -121,7 +126,7 @@ fun CalendarView(
 
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
-                            text = currentMonth.format(DateTimeFormatter.ofPattern("MMMM yyyy")),
+                            text = currentMonth.format(DateTimeFormatter.ofPattern("MMMM yyyy", locale)),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onSurface
@@ -139,7 +144,7 @@ fun CalendarView(
                                 .height(32.dp)
                                 .testTag("jump_today_button")
                         ) {
-                            Text(text = "Today", fontSize = 12.sp)
+                            Text(text = stringResource(R.string.today), fontSize = 12.sp)
                         }
 
                         IconButton(
@@ -169,7 +174,7 @@ fun CalendarView(
                     )
                     daysOfWeek.forEach { dayOfWeek ->
                         Text(
-                            text = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault()).take(2),
+                            text = dayOfWeek.getDisplayName(TextStyle.SHORT, locale).take(3),
                             modifier = Modifier.weight(1f),
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.labelMedium,
@@ -184,9 +189,7 @@ fun CalendarView(
                 // Month Calendar Grid
                 val firstDayOfMonth = currentMonth.atDay(1)
                 val daysInMonth = currentMonth.lengthOfMonth()
-                // Convert Sunday-first: Sunday is 7 in DayOfWeek, modulo 7 gives 0 for Sunday
                 val dayOffset = firstDayOfMonth.dayOfWeek.value % 7
-
                 val totalCells = ((dayOffset + daysInMonth + 6) / 7) * 7
 
                 for (weekIndex in 0 until (totalCells / 7)) {
@@ -236,6 +239,8 @@ fun CalendarView(
             date = selectedDate,
             dayLog = selectedLog,
             status = statusMap[selectedDate] ?: CycleEngine.DateStatus(),
+            locale = locale,
+            isAr = isAr,
             onOpenLogger = { onOpenLogger(selectedDate) }
         )
     }
@@ -261,7 +266,6 @@ fun CalendarDayCell(
 
     val textColor = when {
         status.isPeriodLogged -> Color.White
-        status.isOvulationPeak -> MaterialTheme.colorScheme.onSurface
         else -> MaterialTheme.colorScheme.onSurface
     }
 
@@ -344,10 +348,10 @@ fun CalendarLegend() {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        LegendItem(color = PeriodCrimson, label = "Period")
-        LegendItem(color = PeriodLight, isBorder = true, label = "Predicted")
-        LegendItem(color = FertileLight, borderTint = FertilePurple, label = "Fertile")
-        LegendItem(color = OvulationAmber, label = "Ovulation")
+        LegendItem(color = PeriodCrimson, label = stringResource(R.string.legend_period))
+        LegendItem(color = PeriodLight, isBorder = true, label = stringResource(R.string.legend_predicted))
+        LegendItem(color = FertileLight, borderTint = FertilePurple, label = stringResource(R.string.legend_fertile))
+        LegendItem(color = OvulationAmber, label = stringResource(R.string.legend_ovulation))
     }
 }
 
@@ -381,9 +385,11 @@ fun SelectedDateCard(
     date: LocalDate,
     dayLog: DayLog?,
     status: CycleEngine.DateStatus,
+    locale: Locale,
+    isAr: Boolean,
     onOpenLogger: () -> Unit
 ) {
-    val formatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy")
+    val formatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy", locale)
 
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
@@ -399,7 +405,7 @@ fun SelectedDateCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Column {
+                Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = date.format(formatter),
                         style = MaterialTheme.typography.titleMedium,
@@ -408,11 +414,11 @@ fun SelectedDateCard(
                     )
                     Text(
                         text = when {
-                            status.isPeriodLogged -> "Menstruation Logged"
-                            status.isPredictedPeriod -> "Predicted Period Day"
-                            status.isOvulationPeak -> "Estimated Ovulation Day"
-                            status.isFertileWindow -> "Fertile Window"
-                            else -> "Cycle Day"
+                            status.isPeriodLogged -> stringResource(R.string.menstruation_logged)
+                            status.isPredictedPeriod -> stringResource(R.string.predicted_period_day)
+                            status.isOvulationPeak -> stringResource(R.string.estimated_ovulation_day)
+                            status.isFertileWindow -> stringResource(R.string.fertile_window)
+                            else -> stringResource(R.string.cycle_day)
                         },
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.primary
@@ -435,7 +441,7 @@ fun SelectedDateCard(
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = if (dayLog != null) "Edit Log" else "Log Day",
+                        text = if (dayLog != null) stringResource(R.string.edit_log) else stringResource(R.string.log_day),
                         fontSize = 13.sp,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -451,7 +457,7 @@ fun SelectedDateCard(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = "No symptoms or flow logged yet for this date. Tap above to record how you're feeling.",
+                        text = stringResource(R.string.no_symptoms_logged),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(14.dp)
@@ -470,7 +476,7 @@ fun SelectedDateCard(
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "Flow: ${dayLog.flowIntensity.displayName}",
+                                text = stringResource(R.string.flow_label, dayLog.flowIntensity.localized(isAr)),
                                 style = MaterialTheme.typography.bodyMedium,
                                 fontWeight = FontWeight.SemiBold,
                                 color = PeriodCrimson
@@ -484,7 +490,7 @@ fun SelectedDateCard(
                             Text(text = "💥", fontSize = 14.sp)
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "Cramps: ${dayLog.crampLevel.displayName}",
+                                text = stringResource(R.string.cramps_label, dayLog.crampLevel.localized(isAr)),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurface
                             )
@@ -494,7 +500,7 @@ fun SelectedDateCard(
                     // Symptoms
                     if (dayLog.symptoms.isNotEmpty()) {
                         Text(
-                            text = "Symptoms:",
+                            text = stringResource(R.string.symptoms_label),
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -508,7 +514,7 @@ fun SelectedDateCard(
                                     shape = RoundedCornerShape(8.dp)
                                 ) {
                                     Text(
-                                        text = "${symptom.emoji} ${symptom.displayName}",
+                                        text = "${symptom.emoji} ${symptom.localized(isAr)}",
                                         fontSize = 12.sp,
                                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                                     )
@@ -520,7 +526,7 @@ fun SelectedDateCard(
                     // Moods
                     if (dayLog.moods.isNotEmpty()) {
                         Text(
-                            text = "Mood:",
+                            text = stringResource(R.string.mood_prefix),
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -534,7 +540,7 @@ fun SelectedDateCard(
                                     shape = RoundedCornerShape(8.dp)
                                 ) {
                                     Text(
-                                        text = "${mood.emoji} ${mood.displayName}",
+                                        text = "${mood.emoji} ${mood.localized(isAr)}",
                                         fontSize = 12.sp,
                                         color = MaterialTheme.colorScheme.onTertiaryContainer,
                                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
@@ -549,14 +555,14 @@ fun SelectedDateCard(
                         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                             if (dayLog.waterGlasses > 0) {
                                 Text(
-                                    text = "💧 ${dayLog.waterGlasses} glasses",
+                                    text = "💧 " + stringResource(R.string.water_glasses, dayLog.waterGlasses),
                                     fontSize = 12.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             }
                             if (dayLog.sleepHours > 0) {
                                 Text(
-                                    text = "🌙 ${dayLog.sleepHours} hrs sleep",
+                                    text = "🌙 ${dayLog.sleepHours}h",
                                     fontSize = 12.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
